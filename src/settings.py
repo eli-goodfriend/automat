@@ -13,15 +13,15 @@ class Setting(object):
     """
     abstract parent of all setting classes
     """
-    def __init__(self, data_dir='/home/eli/Data/automat/'):
+    def __init__(self, dir_name='', data_dir='/home/eli/Data/automat/'):
         # TODO being lazy about root data directory, should have a config file
         self.top_data_dir = data_dir
-        self.data_dir = data_dir # should be overwritten by child classes
+        self.data_dir = os.path.join(self.top_data_dir, dir_name)
 
         self.processes = []
         pygame.mixer.init()
 
-    def play_music(self):
+    def play_sound(self):
         """
         play all files in the sound_files directory
         currently assumes
@@ -58,14 +58,13 @@ class DoNothing(Setting):
     def create(self):
         print "do nothing"
 
-class CodingWork(Setting):
+class Rain(Setting):
     """
-    settings to make the room suitable for coding work :P
+    play the sound of rain
     """
-    def __init__(self):
-        Setting.__init__(self)
-        self.data_dir = os.path.join(self.top_data_dir,'coding_work')
+    def __init__(self, dir_name='rain'):
+        Setting.__init__(self, dir_name=dir_name)
 
     def create(self):
-        print "coding work"
-        self.play_music()
+        print "rain"
+        self.play_sound()

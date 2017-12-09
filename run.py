@@ -1,22 +1,19 @@
 """
 main runner for automat
 """
-from src.create import Creator
+from src.manager import Manager
 
 def run_automat():
     """
     run automat:
     - listen for RFID tag signal
-    - when a signal comes in, execute its command
+    - when a signal comes in
     - wait until get a new command
     """
-    current_setting = 'DoNothing'
+    manager = Manager()
     while True:
         setting = raw_input('Setting:')
-        if setting!=current_setting:
-            creator = Creator(setting)
-            creator.create()
-            current_setting = setting
+        manager.check_setting(setting)
 
 if __name__=="__main__":
     run_automat()

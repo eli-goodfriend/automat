@@ -4,10 +4,11 @@ current task is to automate music, but other settings could be added, such as
 color and intensity of light or turning on an aroma diffuser
 """
 import os
-from random import shuffle
 import subprocess
 
 import pygame
+
+from src.util import Sound
 
 class Setting(object):
     """
@@ -20,20 +21,6 @@ class Setting(object):
 
         self.processes = []
         pygame.mixer.init()
-
-    def play_sound(self, dir_name='sound_files'):
-        """
-        play all files in the sound_files directory
-        currently assumes
-        - everything in the directory is a sound file
-        """
-        music_dir = os.path.join(self.data_dir, dir_name)
-        all_files = os.listdir(music_dir)
-        all_files = [os.path.join(music_dir, filename) for filename in all_files]
-        shuffle(all_files)
-        for filename in all_files:
-            pygame.mixer.music.load(filename)
-        pygame.mixer.music.play(-1)
 
     def create(self):
         """
@@ -66,4 +53,5 @@ class Rain(Setting):
 
     def create(self):
         print "rain"
-        self.play_sound()
+        sound_dir = os.path.join(self.data_dir, 'sound_files')
+        Sound.play_sound_from_dir(sound_dir)

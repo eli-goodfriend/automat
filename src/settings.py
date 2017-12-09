@@ -21,14 +21,13 @@ class Setting(object):
         self.processes = []
         pygame.mixer.init()
 
-    def play_sound(self):
+    def play_sound(self, dir_name='sound_files'):
         """
         play all files in the sound_files directory
         currently assumes
         - everything in the directory is a sound file
-        - the music is under a directory called sound_files
         """
-        music_dir = os.path.join(self.data_dir, 'sound_files')
+        music_dir = os.path.join(self.data_dir, dir_name)
         all_files = os.listdir(music_dir)
         all_files = [os.path.join(music_dir, filename) for filename in all_files]
         shuffle(all_files)

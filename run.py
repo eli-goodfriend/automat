@@ -7,8 +7,7 @@ def run_automat():
     """
     run automat:
     - listen for RFID tag signal
-    - when a signal comes in
-    - wait until get a new command
+    - when a signal comes in, ask the manager to handle it
     """
     manager = Manager()
     while True:

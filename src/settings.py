@@ -67,6 +67,10 @@ class Story(Setting):
         Setting.__init__(self, dir_name=dir_name)
 
         # TODO this should be in a config
+        # possible additions:
+        # - this american life
+        # - the truth
+        # - the moth
         self.ratios = {'librivox': 4,
                        'old_time_radio': 4,
                        'other_nightvale': 1,
@@ -77,5 +81,27 @@ class Story(Setting):
         randomly play stories from various categories
         """
         print "story"
+        sound_dir = os.path.join(self.data_dir, 'sound_files')
+        Sound.play_sound_from_ratios(sound_dir, self.ratios)
+
+class Facts(Setting):
+    """
+    play nonfiction audio randomly selected from facts/sound_files/ directories
+    """
+    def __init__(self, dir_name='facts'):
+        Setting.__init__(self, dir_name=dir_name)
+
+        # TODO this should be in a config (?)
+        self.ratios = {'99_percent_invisible': 2,
+                       'radiolab': 2,
+                       'allusionist': 2,
+                       'science_friday': 1,
+                       'futility_closet': 2}
+
+    def create(self):
+        """
+        randomly play nonfiction from various categories
+        """
+        print "facts"
         sound_dir = os.path.join(self.data_dir, 'sound_files')
         Sound.play_sound_from_ratios(sound_dir, self.ratios)

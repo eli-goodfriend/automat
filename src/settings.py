@@ -52,6 +52,30 @@ class Rain(Setting):
         Setting.__init__(self, dir_name=dir_name)
 
     def create(self):
+        """
+        just play the sound of rain, that's it
+        """
         print "rain"
         sound_dir = os.path.join(self.data_dir, 'sound_files')
         Sound.play_sound_from_dir(sound_dir)
+
+class Story(Setting):
+    """
+    play stories randomly selected from story/sound_files/ directories
+    """
+    def __init__(self, dir_name='story'):
+        Setting.__init__(self, dir_name=dir_name)
+
+        # TODO this should be in a config
+        self.ratios = {'librivox': 4,
+                       'old_time_radio': 4,
+                       'other_nightvale': 1,
+                       'welcome_to_nightvale': 1}
+
+    def create(self):
+        """
+        randomly play stories from various categories
+        """
+        print "story"
+        sound_dir = os.path.join(self.data_dir, 'sound_files')
+        Sound.play_sound_from_ratios(sound_dir, self.ratios)

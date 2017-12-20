@@ -2,6 +2,7 @@
 utilities for interfacing with room controls
 """
 import os
+import time
 from random import shuffle, sample
 
 import pygame
@@ -11,6 +12,22 @@ class Sound(object):
     utilities for playing sounds
     """
     @staticmethod
+    def play_sound_from_list(file_list):
+        """
+        make a playlist from a list of sound files and play it, in order
+        """
+        for idx, filename in enumerate(file_list):
+            pygame.mixer.music.load(filename)
+            pygame.mixer.music.play(0)
+            # TODO this works but it's janky
+            # pygame isn't really designed to make playlists, since its queue
+            # only holds one file
+            while True:
+                time.sleep(1)
+                if not pygame.mixer.music.get_busy():
+                    break
+
+    @staticmethod
     def play_sound_from_dir(sound_dir):
         """
         play all files in sound_dir on loop
@@ -19,15 +36,13 @@ class Sound(object):
         all_files = os.listdir(sound_dir)
         all_files = [os.path.join(sound_dir, filename) for filename in all_files]
         shuffle(all_files)
-        for filename in all_files:
-            pygame.mixer.music.load(filename)
-        pygame.mixer.music.play(-1)
+        Sound.play_sound_from_list(all_files)
 
     @staticmethod
     def play_sound_from_file(sound_file):
         """
-        play one sound file
-        assumes everything in the directory is a sound file
+        play one sound file, once
+        assumes sound_file actually is a sound file
         """
         pygame.mixer.music.load(sound_file)
         pygame.mixer.music.play(0)
@@ -59,8 +74,4 @@ class Sound(object):
             file_list += to_play
 
         shuffle(file_list)
-        for filename in file_list:
-            print filename
-            pygame.mixer.music.load(filename)
-
-        pygame.mixer.music.play(-1)
+        Sound.play_sound_from_list(file_list)

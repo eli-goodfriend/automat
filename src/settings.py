@@ -67,12 +67,11 @@ class Story(Setting):
         Setting.__init__(self, dir_name=dir_name)
 
         # TODO this should be in a config
-        # possible additions:
-        # - this american life
-        # - the truth
-        # - the moth
+        # TODO right now other_nightvale is just orbiting human circus
         self.ratios = {'librivox': 4,
                        'old_time_radio': 4,
+                       'drabblecast': 2,
+                       'the_truth': 2,
                        'other_nightvale': 1,
                        'welcome_to_nightvale': 1}
 
@@ -92,11 +91,12 @@ class Facts(Setting):
         Setting.__init__(self, dir_name=dir_name)
 
         # TODO this should be in a config (?)
+        # possible additions:
+        # - radiolab
+        # - science friday
+        # - futility closet
         self.ratios = {'99_percent_invisible': 2,
-                       'radiolab': 2,
-                       'allusionist': 2,
-                       'science_friday': 1,
-                       'futility_closet': 2}
+                       'allusionist': 2}
 
     def create(self):
         """

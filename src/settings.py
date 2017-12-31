@@ -20,7 +20,6 @@ class Setting(object):
         self.data_dir = os.path.join(self.top_data_dir, dir_name)
 
         self.processes = []
-        pygame.mixer.init()
 
     def create(self):
         """
@@ -33,7 +32,6 @@ class Setting(object):
         """
         send signals to all room setting devices to shut down setting
         """
-        pygame.mixer.quit()
         exit_code = [proc.terminate() for proc in self.processes]
 
 class DoNothing(Setting):
@@ -54,14 +52,17 @@ class Rain(Setting):
     def create(self):
         """
         just play the sound of rain, that's it
+        plays all rain files once
         """
         print "rain"
         sound_dir = os.path.join(self.data_dir, 'sound_files')
-        Sound.play_sound_from_dir(sound_dir)
+        proc = Sound.play_sound_from_dir(sound_dir)
+        self.processes.append(proc)
 
 class Story(Setting):
     """
     play stories randomly selected from story/sound_files/ directories
+    builds a playlist and will play files for many hours
     """
     def __init__(self, dir_name='story'):
         Setting.__init__(self, dir_name=dir_name)
@@ -81,11 +82,13 @@ class Story(Setting):
         """
         print "story"
         sound_dir = os.path.join(self.data_dir, 'sound_files')
-        Sound.play_sound_from_ratios(sound_dir, self.ratios)
+        proc = Sound.play_sound_from_ratios(sound_dir, self.ratios)
+        self.processes.append(proc)
 
 class Facts(Setting):
     """
     play nonfiction audio randomly selected from facts/sound_files/ directories
+    builds a playlist and will play files for many hours
     """
     def __init__(self, dir_name='facts'):
         Setting.__init__(self, dir_name=dir_name)
@@ -104,4 +107,21 @@ class Facts(Setting):
         """
         print "facts"
         sound_dir = os.path.join(self.data_dir, 'sound_files')
-        Sound.play_sound_from_ratios(sound_dir, self.ratios)
+        proc = Sound.play_sound_from_ratios(sound_dir, self.ratios)
+        self.processes.append(proc)
+
+class Yoga(Setting):
+    """
+    play one yoga instructor audio
+    """
+    def __init__(self, dir_name='yoga'):
+        Setting.__init__(self, dir_name=dir_name)
+
+    def create(self):
+        """
+        play single yoga file
+        """
+        print "yoga"
+        sound_dir = os.path.join(self.data_dir, 'sound_files')
+        proc = Sound.play_one_file(sound_dir)
+        self.processes.append(proc)

@@ -12,10 +12,8 @@ class TestSound(object):
     """
     def __init__(self):
         self.test_dir = '/home/eli/Data/automat/test/sound_files/shorts'
-        self.tests = ['test_play_sound_from_file',
-                      'test_play_sound_from_dir'] # TODO there must be an automated way of doing this
-
-        pygame.mixer.init()
+        self.tests = ['test_play_sound_from_dir',
+                      'test_play_sound_from_file'] # TODO there must be an automated way of doing this
 
     def run(self):
         print "Running tests"

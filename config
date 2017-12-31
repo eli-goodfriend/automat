@@ -1,0 +1,8 @@
+// configuration for manager
+// the LHS will be replaced by the strings that RFID tags output
+input_to_setting {
+donothing = DoNothing
+rain = Rain
+story = Story
+facts = Facts
+}

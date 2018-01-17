@@ -1,9 +1,28 @@
 // configuration for manager
-// the LHS will be replaced by the strings that RFID tags output
-input_to_setting {
-donothing = DoNothing
-rain = Rain
-story = Story
-facts = Facts
-yoga = Yoga
+// the 10 digit numbers are the strings that RFID tags output
+initial_setting = "0014817326"
+settings {
+  "0014817326"
+    {name = do_nothing
+     sound_type = silent}
+  "0014801793"
+    {name = rain
+     sound_type = continuous}
+  "0014838213"
+    {name = story
+     sound_type = ratio
+     sound_ratio = {librivox: 4,
+                    old_time_radio: 4,
+                    drabblecast: 2,
+                    the_truth: 2,
+                    other_nightvale: 1,
+                    welcome_to_nightvale: 1} }
+  "facts"
+    {name = facts
+     sound_type = ratio
+     sound_ratio = {99_percent_invisible: 2,
+                    allusionist: 2} }
+  "yoga"
+    {name = yoga
+     sound_type = once}
 }

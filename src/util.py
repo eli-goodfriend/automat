@@ -49,7 +49,7 @@ class Sound(object):
         play all files in sound_dir once through
         assumes everything in the directory is a sound file
         """
-        # TODO loop?
+        # TODO I want this to loop
         all_files = os.listdir(sound_dir)
         all_files = [os.path.join(sound_dir, filename) for filename in all_files]
         shuffle(all_files)

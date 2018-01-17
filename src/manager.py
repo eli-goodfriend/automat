@@ -6,47 +6,46 @@ module to manage settings:
 import importlib
 from pyhocon import ConfigFactory
 
-from src.settings import DoNothing
+from src.environment import Environment
 
 class Manager(object):
     """
     converts a setting command to a room environment
+    setting = the 10 digit code output by the RFID reader, used to label a group of commands
+    configuration = the dictionary of environment specifications associated with each setting
+    environment = an instance of the Environment class used to interface with devices
     """
-    def __init__(self, setting_module='src.settings', config='config'):
-        self.settings_mod = importlib.import_module(setting_module)
-
-        self.current_setting = DoNothing()
-        self.current_setting.create()
-
+    def __init__(self, config='config'):
         conf = ConfigFactory.parse_file(config)
-        self.input_to_setting = conf.get('input_to_setting').as_plain_ordered_dict()
+        self.settings = conf.get('settings').as_plain_ordered_dict()
+        self.initial_setting = conf.get('initial_setting')
 
-    def check_setting(self, setting_input):
+        self.current_setting = self.initial_setting
+        configuration = self.setting_to_configuration(self.current_setting)
+        self.current_environment = Environment(configuration)
+
+    def check_setting(self, setting):
         """
         check if setting has changed
         """
-        setting = self.convert_input(setting_input)
-        try:
-            setting_class = getattr(self.settings_mod, setting)
-            if not isinstance(self.current_setting, setting_class):
-                self.change_setting(setting_class)
-        except AttributeError:
-            print "{} is not a known setting".format(setting)
+        if setting != self.current_setting:
+            configuration = self.setting_to_configuration(setting)
+            self.change_environment(configuration)
+            self.current_setting = setting
 
-    def convert_input(self, setting_input):
+    def setting_to_configuration(self, setting):
         """
-        use config dict to convert between raw input and specified class
+        use config dict to convert between setting and configuration
         """
         try:
-            setting = self.input_to_setting[setting_input]
+            configuration = self.settings[setting]
         except KeyError:
-            setting = 'DoNothing'
-        return setting
+            configuration = self.settings[self.initial_setting]
+        return configuration
 
-    def change_setting(self, new_setting):
+    def change_environment(self, new_configuration):
         """
-        destroy the previous setting and create the new setting
+        destroy the previous environment and create the new environment
         """
-        self.current_setting.destroy()
-        self.current_setting = new_setting()
-        self.current_setting.create()
+        self.current_environment.destroy()
+        self.current_environment = Environment(new_configuration)

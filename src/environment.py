@@ -4,9 +4,6 @@ current task is to automate music, but other settings could be added, such as
 color and intensity of light or turning on an aroma diffuser
 """
 import os
-import subprocess
-
-import pygame
 
 from src.util import Sound
 
@@ -14,8 +11,7 @@ class Environment(object):
     """
     manage all external devices according to input configuration
     """
-    def __init__(self, configuration, data_dir='/home/eli/Data/automat/'):
-        # TODO stop being lazy about root data dir
+    def __init__(self, configuration, data_dir='./'):
         self.name = configuration['name']
         self.data_dir = os.path.join(data_dir, self.name)
 

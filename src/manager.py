@@ -3,7 +3,6 @@ module to manage settings:
     - keeps track of what setting is active
     - swaps settings when input changes
 """
-import importlib
 from pyhocon import ConfigFactory
 
 from src.environment import Environment
@@ -15,14 +14,15 @@ class Manager(object):
     configuration = the dictionary of environment specifications associated with each setting
     environment = an instance of the Environment class used to interface with devices
     """
-    def __init__(self, config='config'):
+    def __init__(self, config='./config'):
         conf = ConfigFactory.parse_file(config)
         self.settings = conf.get('settings').as_plain_ordered_dict()
         self.initial_setting = conf.get('initial_setting')
+        self.data_dir = conf.get('data_dir', './')
 
         self.current_setting = self.initial_setting
         configuration = self.setting_to_configuration(self.current_setting)
-        self.current_environment = Environment(configuration)
+        self.current_environment = Environment(configuration, data_dir=self.data_dir)
 
     def check_setting(self, setting):
         """
@@ -48,4 +48,4 @@ class Manager(object):
         destroy the previous environment and create the new environment
         """
         self.current_environment.destroy()
-        self.current_environment = Environment(new_configuration)
+        self.current_environment = Environment(new_configuration, data_dir=self.data_dir)

@@ -1,5 +1,6 @@
 // configuration for manager
 // the 10 digit numbers are the strings that RFID tags output
+data_dir = /home/eli/Data/automat/
 initial_setting = "0014817326"
 settings {
   "0014817326"

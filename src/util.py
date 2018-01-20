@@ -2,11 +2,14 @@
 utilities for interfacing with room controls
 """
 import os
+import sys
 import time
 from random import shuffle, sample
 from multiprocessing import Process
 
 import pygame
+from pydora.player import PlayerApp
+from requests.adapters import ConnectionError
 
 class Sound(object):
     """
@@ -102,5 +105,39 @@ class Sound(object):
 
         shuffle(file_list)
         p = Process(target=Sound.play_sound_from_list, args=(file_list,))
+        p.start()
+        return p
+
+    @staticmethod
+    def play_pandora_station(station_name):
+        """
+        subprocess to actually do the playing
+        """
+        sys.stdout = open(os.devnull, 'w') #shush its sass
+
+        try:
+            player_app = PlayerApp()
+            player_app.player = player_app.get_player()
+            player_app.player.start()
+
+            player_app.client = player_app.get_client()
+            player_app.stations = player_app.client.get_station_list()
+
+            names = [item[1].name for item in player_app.stations.items()]
+            ids = [item[0] for item in player_app.stations.items()]
+            station_dict = dict(zip(names, ids))
+            station_id = station_dict[station_name]
+
+            player_app.player.play_station(player_app.stations[station_id])
+        except ConnectionError:
+            print "No internet :("
+
+    @staticmethod
+    def play_pandora(station_name):
+        """
+        play a pandora station
+        """
+        #TODO internet warning
+        p = Process(target=Sound.play_pandora_station, args=(station_name,))
         p.start()
         return p

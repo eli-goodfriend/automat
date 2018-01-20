@@ -36,6 +36,10 @@ class Environment(object):
             ratio = configuration['sound_ratio']
             proc = Sound.play_sound_from_ratios(sound_dir, ratio)
             self.processes.append(proc)
+        elif sound_type == 'pandora':
+            station_name = configuration['station_name']
+            proc = Sound.play_pandora(station_name)
+            self.processes.append(proc)
         else:
             print "Unknown sound type, not playing any sounds"
 

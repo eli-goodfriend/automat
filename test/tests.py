@@ -31,3 +31,14 @@ class TestSound(object):
 
     def test_play_sound_from_dir(self):
         Sound.play_sound_from_dir(self.test_dir)
+
+class TestPandora(object):
+    """
+    methods for hand testing pandora interface
+    """
+
+    def __init__(self):
+        self.station = "Flogging Molly Radio"
+
+    def run(self):
+        Sound.play_pandora(self.station)

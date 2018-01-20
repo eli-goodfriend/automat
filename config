@@ -1,7 +1,11 @@
 // configuration for manager
 // the 10 digit numbers are the strings that RFID tags output
-data_dir = /home/eli/Data/automat/
+data_dir = /media/eli/Elements/automat/
 initial_setting = "0014817326"
+sound_effects {
+  new_tag = bell.ogg
+  failure = sad_trombone.ogg
+}
 settings {
   "0014817326"
     {name = do_nothing
@@ -26,4 +30,17 @@ settings {
   "yoga"
     {name = yoga
      sound_type = once}
+  "silly_instrumental"
+    {name = silly_instrumental
+     sound_type = continuous}
+  "queer"
+    {name = queer
+     sound_type = continuous}
+  "fire"
+    {name = fire
+     sound_type = continuous}
+  "irish"
+    {name = irish
+     sound_type = pandora
+     station_name = "Flogging Molly Radio"}
 }

@@ -109,6 +109,16 @@ class Sound(object):
         return p
 
     @staticmethod
+    def play_sound_effect(file_name, length):
+        """
+        play a single sound effect independently of an environment
+        """
+        p = Process(target=Sound.play_sound_from_file, args=(file_name,))
+        p.start()
+        time.sleep(length)
+        p.terminate()
+
+    @staticmethod
     def play_pandora_station(station_name):
         """
         subprocess to actually do the playing

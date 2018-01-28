@@ -26,6 +26,7 @@ class Reader(object):
         receive input from reader event only
         return on enter
         """
+	print("Waiting for code")
         code = []
         for event in self.device.read_loop():
             if event.type == evdev.ecodes.EV_KEY:
@@ -36,4 +37,6 @@ class Reader(object):
                         break
                     else:
                         code.append(key)
+        code = ''.join(code)
+        print(code)
         return code

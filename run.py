@@ -3,6 +3,7 @@ main runner for automat
 """
 import sys
 from src.manager import Manager
+from src.read_setting import Reader
 
 def run_automat(config_file):
     """
@@ -11,8 +12,9 @@ def run_automat(config_file):
     - when a signal comes in, ask the manager to handle it
     """
     manager = Manager(config=config_file)
+    reader = Reader(config=config_file)
     while True:
-        setting = raw_input('Setting:')
+        setting = reader.get_input()
         manager.check_setting(setting)
 
 if __name__=="__main__":

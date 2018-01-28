@@ -1,6 +1,7 @@
 // configuration for manager
 // the 10 digit numbers are the strings that RFID tags output
 data_dir = /media/eli/Elements/automat/
+reader = 17
 initial_setting = "0014817326"
 sound_effects {
   new_tag = bell.ogg

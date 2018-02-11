@@ -117,6 +117,7 @@ class Sound(object):
         p.start()
         time.sleep(length)
         p.terminate()
+        p.join()
 
     @staticmethod
     def play_pandora_station(station_name):

@@ -23,24 +23,24 @@ settings {
                     the_truth: 2,
                     other_nightvale: 1,
                     welcome_to_nightvale: 1} }
-  "facts"
+  "0003477362"
     {name = facts
      sound_type = ratio
      sound_ratio = {99_percent_invisible: 2,
                     allusionist: 2} }
-  "yoga"
+  "0014789368"
     {name = yoga
      sound_type = once}
-  "silly_instrumental"
+  "0014820991"
     {name = silly_instrumental
      sound_type = continuous}
-  "queer"
+  "0014834155"
     {name = queer
      sound_type = continuous}
-  "fire"
+  "0014825765"
     {name = fire
      sound_type = continuous}
-  "irish"
+  "0014826558"
     {name = irish
      sound_type = pandora
      station_name = "Flogging Molly Radio"}

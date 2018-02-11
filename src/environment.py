@@ -47,4 +47,6 @@ class Environment(object):
         """
         send signals to all room setting devices to shut down setting
         """
-        exit_code = [proc.terminate() for proc in self.processes]
+        for proc in self.processes:
+            proc.terminate()
+            proc.join()

@@ -22,6 +22,7 @@ class Manager(object):
         self.initial_setting = conf.get('initial_setting')
         self.data_dir = conf.get('data_dir', './')
         self.new_tag_sound = conf.get('sound_effects.new_tag', '')
+        self.tag_length = conf.get('tag_length', 10)
 
         self.current_setting = self.initial_setting
         configuration = self.setting_to_configuration(self.current_setting)
@@ -31,7 +32,7 @@ class Manager(object):
         """
         check if setting has changed
         """
-        if setting != self.current_setting:
+        if (setting != self.current_setting) & (len(setting) == self.tag_length):
             self.announce_new_setting()
             configuration = self.setting_to_configuration(setting)
             self.change_environment(configuration)

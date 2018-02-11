@@ -3,6 +3,7 @@
 data_dir = /media/pi/Elements/automat/
 reader = 0 
 initial_setting = "0014817326"
+tag_length = 10 
 sound_effects {
   new_tag = bell.ogg
   failure = sad_trombone.ogg

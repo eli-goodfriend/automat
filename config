@@ -30,6 +30,9 @@ settings {
      sound_ratio = {99_percent_invisible: 2,
                     allusionist: 2} }
   "0014789368"
+    {name = ocean
+     sound_type = continuous}
+  "not in use"
     {name = yoga
      sound_type = once}
   "0014820991"
@@ -41,8 +44,25 @@ settings {
   "0014825765"
     {name = fire
      sound_type = continuous}
+  "0011617345"
+    {name = plantmusik
+     sound_type = continuous}
+  "0011684655"
+    {name = janellemonae
+     sound_type = continuous}
   "0014826558"
+    {name = space
+     sound_type = continuous}
+  "not in use too"
     {name = irish
      sound_type = pandora
      station_name = "Flogging Molly Radio"}
+  "0003485042"
+    {name = cobras
+     sound_type = pandora
+     station_name = "The Detroit Cobras Radio"}
+  "0011655285"
+    {name = prince
+     sound_type = pandora
+     station_name = "Prince Radio"}
 }
